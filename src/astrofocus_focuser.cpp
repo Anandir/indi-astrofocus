@@ -52,8 +52,9 @@
 #include <unistd.h>
 #include <termios.h>
 
-#include "indicom.h"
+#include <indicom.h>
 #include "connectionplugins/connectionserial.h"
+
 #include "astrofocus_focuser.h"
 
 static std::unique_ptr<AstrofocusFocus> astrofocusFocus(new AstrofocusFocus());
