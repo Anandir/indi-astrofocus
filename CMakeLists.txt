@@ -19,8 +19,15 @@ include_directories(${INDI_INCLUDE_DIR})
 include(CMakeCommon)
 
 ########### AstroFocus ###########
+
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-error")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
+
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+    # Debug build, it will enable the "addDebugControl()"
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG_BUILD")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG_BUILD")
+ENDIF()
 
 SET(astrofocus_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/astrofocus_focuser.cpp)

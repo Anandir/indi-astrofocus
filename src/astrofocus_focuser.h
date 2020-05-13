@@ -26,13 +26,14 @@
     #define MESSAGE_MAX_LENGHT  50
     #define READ_TIMEOUT        5
 
-    class AstrofocusFocus : public INDI::Focuser
+    class AstrofocusFocuser : public INDI::Focuser
     {
         public:
-            AstrofocusFocus();
-            virtual ~AstrofocusFocus() override;
+            AstrofocusFocuser();
+            ~AstrofocusFocuser();
             
             virtual bool Handshake();
+            virtual void ISGetProperties(const char *dev);
             virtual bool ISNewSwitch(const char *dev, const char *name, ISState *states, char *names[], int n) override;
         protected:
             const char *getDefaultName();
@@ -43,6 +44,10 @@
             bool receivedAck();
             char * receiveResponse();
 
+            void loadSettingsFromDevice();
+
+            int stringToInt(const char *str, bool * has_errors);
+            float stringToFloat(const char *str, bool * has_errors);
         private:
             enum
             {
@@ -54,5 +59,11 @@
 
             ISwitch StepperModeS[STEPPER_MODE_COUNT];
             ISwitchVectorProperty StepperModeSP;
+
+            INumber StepSizeN[1] {};
+            INumberVectorProperty StepSizeNP;
+
+            IText FirmwareVersionT[1] {};
+            ITextVectorProperty FirmwareVersionTP;
     };
 #endif
