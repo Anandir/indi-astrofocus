@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Copyright(c) 2020 Giacomo Succ. All rights reserved.
+  Copyright(c) Giacomo Succi. All rights reserved.
 
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Library General Public
@@ -141,9 +141,9 @@ bool AstrofocusFocuser::updateProperties()
     {
         loadSettingsFromDevice();
         
-        defineNumber(&StepSizeNP);
-        defineText(&FirmwareVersionTP);
-        defineSwitch(&StepperModeSP);
+        defineProperty(&StepSizeNP);
+        defineProperty(&FirmwareVersionTP);
+        defineProperty(&StepperModeSP);
     }
     else
     {
@@ -300,7 +300,7 @@ bool AstrofocusFocuser::Handshake()
         return false;
 
     FirmwareVersionT[0].text = response;
-    defineText(&FirmwareVersionTP);
+    defineProperty(&FirmwareVersionTP);
 
     return true;
 }
@@ -581,8 +581,8 @@ void AstrofocusFocuser::loadSettingsFromDevice()
     // -------
 
     FocusMaxPosN[0].min = 0.;
-    FocusMaxPosN[0].max = 0.;
-    FocusMaxPosN[0].value = 0.;
+    FocusMaxPosN[0].max = current_upper_limit;
+    FocusMaxPosN[0].value = current_position;
     FocusMaxPosN[0].step = 0.;
     FocusMaxPosNP.s = IPS_OK;
 
